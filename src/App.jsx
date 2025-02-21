@@ -67,3 +67,43 @@ export default function App() {
     </main>
   );
 }
+
+/**import React, { useState } from "react";
+import clsx from "clsx";
+
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+const WordGame = () => {
+  const [word, setWord] = useState("REACT"); // Example word
+  const [guessedLetters, setGuessedLetters] = useState([]);
+
+  const handleClick = (letter) => {
+    if (!guessedLetters.includes(letter)) {
+      setGuessedLetters([...guessedLetters, letter]);
+    }
+  };
+
+  return (
+    <div className="flex flex-wrap gap-2 p-4">
+      {alphabet.map((letter) => (
+        <button
+          key={letter}
+          onClick={() => handleClick(letter)}
+          className={clsx(
+            "px-4 py-2 border rounded text-white font-bold transition-colors",
+            {
+              "bg-green-500": guessedLetters.includes(letter) && word.includes(letter),
+              "bg-red-500": guessedLetters.includes(letter) && !word.includes(letter),
+              "bg-gray-700": !guessedLetters.includes(letter),
+            }
+          )}
+        >
+          {letter}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+export default WordGame;
+ */
