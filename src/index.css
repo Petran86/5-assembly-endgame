@@ -33,13 +33,21 @@ header>p {
 }
 
 section.game-status {
-  background-color: #10A95B;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #F9F4DA;
+  min-height: 60px;
   border-radius: 4px;
   margin-block: 30px;
+}
+
+section.game-status.won {
+  background-color: #10A95B;
+}
+
+section.game-status.lost {
+  background-color: #BA2A2A;
 }
 
 section.game-status>p {
@@ -60,11 +68,27 @@ section.game-status>h2 {
   margin-bottom: 2em;
 }
 
-.chip {
+span.chip {
   padding: 8px;
   border-radius: 5px;
   font-size: 0.75rem;
   font-weight: 700;
+  position: relative;
+}
+
+/* Dimmed overlay with skull on "lost" languages */
+span.chip.lost::before {
+  content: "💀";
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  font-size: 0.85rem;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .word {
@@ -117,4 +141,12 @@ button.new-game {
   display: block;
   margin-inline: auto;
   cursor: pointer;
+}
+
+.correct {
+  background-color: #10A95B;
+}
+
+.wrong {
+  background-color: #EC5D49;
 }
