@@ -4,10 +4,11 @@ import Keyboard from "./components/Keyboard";
 import { languages } from "./languages";
 import { getFarewellText, getRandomWord } from "./utils";
 import clsx from "clsx";
+import Confetti from "react-confetti";
 
 export default function App() {
   //State values
-  const [currentWord, setCurrentWord] = useState(getRandomWord());
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
 
   //Derived values
@@ -35,6 +36,11 @@ export default function App() {
     );
   }
 
+  function startNewGame() {
+    setGuessedLetters([]);
+    setCurrentWord(getRandomWord());
+  }
+
   const chipsEl = languages.map((chip, index) => {
     const isLost = index < wrongGuessCount;
     return (
@@ -49,9 +55,13 @@ export default function App() {
   });
 
   const wordEl = Array.from(currentWord).map((letter, index) => {
+    const shouldRevealLetter = isGameLost || guessedLetters.includes(letter);
+    const letterClassName = clsx(
+      isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+    );
     return (
-      <span key={index} className="letter">
-        {guessedLetters.includes(letter) ? letter.toUpperCase() : ""}
+      <span key={index} className={letterClassName}>
+        {shouldRevealLetter ? letter.toUpperCase() : ""}
       </span>
     );
   });
@@ -104,6 +114,7 @@ export default function App() {
 
   return (
     <main>
+      {isGameWon && <Confetti recycle={false} />}
       <header>
         <h1>Assembly: Endgame</h1>
         <p>
@@ -143,7 +154,11 @@ export default function App() {
         </p>
       </section>
       <section className="keyboard">{keyoardEl}</section>
-      {isGameOver && <button className="new-game">New Game</button>}
+      {isGameOver && (
+        <button className="new-game" onClick={startNewGame}>
+          New Game
+        </button>
+      )}
     </main>
   );
 }
