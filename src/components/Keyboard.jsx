@@ -7,7 +7,13 @@ export default function Keyboard(props) {
     wrong: props.isWrong,
   });
   return (
-    <button className={className} onClick={() => props.addLetter(props.id)}>
+    <button
+      className={className}
+      disabled={props.isGameOver}
+      aria-disabled={props.isGameOver}
+      aria-label={`Letter ${props.id}`}
+      onClick={() => props.addLetter(props.id)}
+    >
       {props.name}
     </button>
   );
